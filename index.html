@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+<html lang="id" data-bs-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asesmen Berfikir Komputasional - Kelas XI</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-color: #A56F63; /* Coklat */
+            --secondary-color: #D99B7F; /* Coklat Muda */
+            --accent-color: #464858; /* Grey */
+            --bg-color: #F8F5F2;
+            --text-color: #333333;
+            --card-bg: #FFFFFF;
+            
+            /* Certificate Colors */
+            --cert-primary: #1A5F7A; /* Biru Tua */
+            --cert-secondary: #22A699; /* Hijau Toska */
+            --cert-bg: #F8F9FA; /* Putih/Light */
+        }
+
+        [data-bs-theme="dark"] {
+            --bg-color: #1E1E1E;
+            --text-color: #E0E0E0;
+            --card-bg: #2D2D2D;
+            --primary-color: #C08A7E;
+            --secondary-color: #B57D63;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: background-color 0.3s, color 0.3s;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5, h6, .brand-font {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* Utility Classes */
+        .text-primary-custom { color: var(--primary-color) !important; }
+        .bg-primary-custom { background-color: var(--primary-color) !important; color: white; }
+        .bg-secondary-custom { background-color: var(--secondary-color) !important; color: white; }
+        .btn-custom {
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 12px;
+            padding: 10px 24px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            box-shadow: 0 4px 6px rgba(165, 111, 99, 0.2);
+        }
+        .btn-custom:hover {
+            background-color: var(--accent-color);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(70, 72, 88, 0.3);
+        }
+        .btn-outline-custom {
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            border-radius: 12px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .btn-outline-custom:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        /* Modern Card Styling (Canva vibe) */
+        .modern-card {
+            background-color: var(--card-bg);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border: none;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            overflow: hidden;
+        }
+        .menu-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(165, 111, 99, 0.15);
+            cursor: pointer;
+        }
+        .menu-icon {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        /* App Shell */
+        .app-header {
+            background-color: var(--card-bg);
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .app-container {
+            min-height: calc(100vh - 160px);
+            padding: 30px 15px;
+        }
+        
+        /* Exam Layout */
+        .question-number-tile {
+            width: 40px;
+            height: 40px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            margin: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            background-color: var(--bg-color);
+            border: 2px solid #ddd;
+            color: var(--text-color);
+            transition: all 0.2s;
+        }
+        [data-bs-theme="dark"] .question-number-tile { border-color: #555; }
+        
+        .question-number-tile.answered {
+            background-color: var(--secondary-color);
+            color: white;
+            border-color: var(--secondary-color);
+        }
+        .question-number-tile.active {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(165, 111, 99, 0.3);
+            transform: scale(1.1);
+        }
+
+        /* Inputs */
+        .form-control, .form-select {
+            border-radius: 12px;
+            padding: 12px 15px;
+            border: 2px solid #eee;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+        }
+        [data-bs-theme="dark"] .form-control, [data-bs-theme="dark"] .form-select { border-color: #444; }
+        .form-control:focus, .form-select:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.25rem rgba(165, 111, 99, 0.25);
+        }
+        
+        /* Options Styling */
+        .option-label {
+            display: block;
+            padding: 15px 20px;
+            border: 2px solid #ddd;
+            border-radius: 15px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+            background-color: var(--card-bg);
+        }
+        [data-bs-theme="dark"] .option-label { border-color: #555; }
+        .option-label:hover {
+            border-color: var(--secondary-color);
+            background-color: rgba(217, 155, 127, 0.05);
+        }
+        .option-input:checked + .option-label {
+            border-color: var(--primary-color);
+            background-color: rgba(165, 111, 99, 0.1);
+            font-weight: bold;
+        }
+        .option-input { display: none; }
+
+        /* Matching Specifics */
+        .match-container {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .match-column { flex: 1; min-width: 250px; }
+        .match-item {
+            padding: 15px;
+            background: var(--card-bg);
+            border: 2px solid #ddd;
+            border-radius: 12px;
+            margin-bottom: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        [data-bs-theme="dark"] .match-item { border-color: #555; }
+        .match-item.selected {
+            border-color: var(--primary-color);
+            background-color: rgba(165, 111, 99, 0.1);
+            transform: scale(1.02);
+        }
+        .match-item.matched {
+            background-color: var(--secondary-color);
+            color: white;
+            border-color: var(--secondary-color);
+            cursor: default;
+        }
+
+        /* Certificate Print Styles */
+        .certificate-container {
+            background: var(--cert-bg);
+            color: #333; /* Force dark text on cert */
+            border: 15px solid var(--cert-primary);
+            padding: 40px;
+            border-radius: 10px;
+            position: relative;
+            text-align: center;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            background-image: linear-gradient(135deg, rgba(34, 166, 153, 0.05) 25%, transparent 25%, transparent 50%, rgba(34, 166, 153, 0.05) 50%, rgba(34, 166, 153, 0.05) 75%, transparent 75%, transparent);
+            background-size: 40px 40px;
+        }
+        .cert-inner-border {
+            border: 2px dashed var(--cert-secondary);
+            padding: 40px;
+        }
+        .cert-header { color: var(--cert-primary); font-family: 'Poppins', serif; }
+        .cert-title { font-size: 3.5rem; font-weight: 800; color: var(--cert-secondary); margin: 20px 0; text-transform: uppercase; letter-spacing: 2px;}
+        .cert-body { font-size: 1.2rem; margin: 30px 0; line-height: 1.8; }
+        .cert-name { font-size: 2.5rem; font-weight: 700; color: var(--cert-primary); border-bottom: 2px solid var(--cert-secondary); display: inline-block; padding-bottom: 5px; margin: 10px 0; }
+        .signature-area { margin-top: 50px; display: flex; justify-content: flex-end; }
+        .signature-box { text-align: center; width: 250px; }
+        
+        .screen { display: none; animation: fadeIn 0.5s ease; }
+        .screen.active { display: block; }
+        
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Print Media Query */
+        @media print {
+            body * { visibility: hidden; }
+            #certificate-screen, #certificate-screen * { visibility: visible; }
+            #certificate-screen { position: absolute; left: 0; top: 0; width: 100%; height: 100%; margin: 0; padding: 0; }
+            .no-print { display: none !important; }
+            .certificate-container { border-width: 10px; box-shadow: none; background: white; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            @page { size: landscape; margin: 1cm; }
+        }
+        
+        /* Badges */
+        .badge-icon { font-size: 4rem; color: #FFD700; text-shadow: 0 4px 10px rgba(255,215,0,0.4); margin-bottom: 15px;}
+        
+        /* Loader */
+        .loader {
+            border: 5px solid var(--bg-color);
+            border-top: 5px solid var(--primary-color);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
+</head>
+<body>
+
+    <header class="app-header no-print">
+        <div class="container d-flex justify-content-between align-items-center">
+            <div class="d-flex align-items-center gap-3">
+                <i class="fas fa-laptop-code text-primary-custom fs-2"></i>
+                <div>
+                    <h5 class="mb-0 brand-font fw-bold text-primary-custom">Informatika XI</h5>
+                    <small class="text-muted d-none d-sm-block">Asesmen Berfikir Komputasional</small>
+                </div>
+            </div>
+            <div class="d-flex align-items-center gap-3">
+                <div id="timer-display" class="d-none bg-primary-custom px-3 py-1 rounded-pill fw-bold">
+                    <i class="fas fa-clock me-2"></i><span id="time-left">90:00</span>
+                </div>
+                <button class="btn btn-light rounded-circle shadow-sm" onclick="toggleTheme()" id="theme-btn">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container app-container">
+        
+        <!-- Screen: Main Menu -->
+        <section id="menu-screen" class="screen active">
+            <div class="text-center mb-5">
+                <h1 class="fw-bold brand-font mb-3">Selamat Datang di Asesmen Interaktif</h1>
+                <p class="lead">Materi: Struktur Data & Strategi Algoritmik | Kelas XI SMA KHALIFAH BOARDING SCHOOL</p>
+            </div>
+            
+            <div class="row g-4 justify-content-center">
+                <!-- Apersepsi Card -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="modern-card p-4 text-center h-100 menu-card" onclick="navTo('apersepsi-screen')">
+                        <i class="fas fa-book-open menu-icon"></i>
+                        <h4 class="brand-font fw-bold">1. Apersepsi & Panduan</h4>
+                        <p class="text-muted">Baca panduan lengkap dan tujuan pembelajaran sebelum memulai ujian.</p>
+                    </div>
+                </div>
+                <!-- Start Exam Card -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="modern-card p-4 text-center h-100 menu-card border-primary" style="border: 2px solid var(--primary-color);" onclick="navTo('apersepsi-screen')">
+                        <i class="fas fa-play-circle menu-icon text-primary-custom"></i>
+                        <h4 class="brand-font fw-bold">Mulai Ujian Utama</h4>
+                        <p class="text-muted">Terdiri dari PG, PG Kompleks, Menjodohkan, Isian, & Uraian. Waktu 90 Menit.</p>
+                    </div>
+                </div>
+                <!-- Certificate Info Card -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="modern-card p-4 text-center h-100">
+                        <i class="fas fa-award menu-icon text-secondary"></i>
+                        <h4 class="brand-font fw-bold">Sertifikat Hasil</h4>
+                        <p class="text-muted">Dapatkan sertifikat digital secara otomatis setelah menyelesaikan semua soal ujian.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Screen: Apersepsi & Identitas -->
+        <section id="apersepsi-screen" class="screen">
+            <div class="modern-card p-4 p-md-5 mx-auto" style="max-width: 800px;">
+                <button class="btn btn-sm btn-outline-secondary mb-4" onclick="navTo('menu-screen')">
+                    <i class="fas fa-arrow-left me-2"></i>Kembali
+                </button>
+                
+                <h2 class="brand-font fw-bold text-center text-primary-custom mb-4">Apersepsi & Panduan Ulangan</h2>
+                
+                <div class="alert bg-secondary-custom text-white mb-4">
+                    <h5><i class="fas fa-bullseye me-2"></i>Tujuan Pembelajaran</h5>
+                    <p class="mb-0">Ujian ini dirancang bukan sekadar untuk menilai, melainkan untuk memperdalam pemahamanmu mengenai Berpikir Komputasional (Struktur Data & Strategi Algoritmik). Jangan takut salah, jadikan ini tantangan untuk mengasah logikamu!</p>
+                </div>
+
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <h5 class="fw-bold"><i class="fas fa-list-ol text-primary-custom me-2"></i>Struktur Soal</h5>
+                        <ul class="list-group list-group-flush mb-3">
+                            <li class="list-group-item bg-transparent">20 Pilihan Ganda</li>
+                            <li class="list-group-item bg-transparent">5 PG Kompleks (Banyak Jawaban)</li>
+                            <li class="list-group-item bg-transparent">5 Soal Menjodohkan</li>
+                            <li class="list-group-item bg-transparent">10 Isian Singkat</li>
+                            <li class="list-group-item bg-transparent">5 Uraian HOTS</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <h5 class="fw-bold"><i class="fas fa-info-circle text-primary-custom me-2"></i>Panduan</h5>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item bg-transparent">Waktu pengerjaan: <strong>90 Menit</strong>.</li>
+                            <li class="list-group-item bg-transparent">Timer akan berjalan saat tombol "Mulai" ditekan.</li>
+                            <li class="list-group-item bg-transparent">Gunakan navigasi di sisi layar untuk berpindah soal.</li>
+                            <li class="list-group-item bg-transparent">Pastikan koneksi stabil, data tidak tersimpan di server (berjalan offline di browser).</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <hr class="my-4">
+                <h4 class="brand-font fw-bold text-center mb-3">Isi Data Diri</h4>
+                <form id="student-form" onsubmit="startExam(event)">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Nama Lengkap</label>
+                            <input type="text" class="form-control" id="student-name" required placeholder="Contoh: Budi Santoso">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Kelas</label>
+                            <select class="form-select" id="student-class" required>
+                                <option value="" disabled selected>Pilih Kelas...</option>
+                                <option value="XI IMAM BONJOL">XI IMAM BONJOL</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="text-center mt-5">
+                        <button type="submit" class="btn btn-custom btn-lg w-100" style="max-width: 300px;">
+                            <i class="fas fa-rocket me-2"></i>Mulai Ujian Sekarang
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- Screen: Active Exam -->
+        <section id="exam-screen" class="screen">
+            <div class="row">
+                <!-- Navigation Sidebar -->
+                <div class="col-lg-3 mb-4 mb-lg-0 order-2 order-lg-1">
+                    <div class="modern-card p-3 sticky-top" style="top: 80px;">
+                        <h5 class="fw-bold mb-3 text-center border-bottom pb-2">Navigasi Soal</h5>
+                        
+                        <div class="progress mb-3" style="height: 10px;">
+                            <div class="progress-bar bg-secondary-custom" id="exam-progress" role="progressbar" style="width: 0%;"></div>
+                        </div>
+                        
+                        <!-- PG Container -->
+                        <div class="mb-3">
+                            <small class="fw-bold text-muted d-block mb-2">Pilihan Ganda (1-20)</small>
+                            <div id="nav-pg" class="d-flex flex-wrap justify-content-center"></div>
+                        </div>
+                        <!-- PGK Container -->
+                        <div class="mb-3">
+                            <small class="fw-bold text-muted d-block mb-2">PG Kompleks (21-25)</small>
+                            <div id="nav-pgk" class="d-flex flex-wrap justify-content-center"></div>
+                        </div>
+                        <!-- Match Container -->
+                        <div class="mb-3">
+                            <small class="fw-bold text-muted d-block mb-2">Menjodohkan (26-30)</small>
+                            <div id="nav-match" class="d-flex flex-wrap justify-content-center"></div>
+                        </div>
+                        <!-- Isian Container -->
+                        <div class="mb-3">
+                            <small class="fw-bold text-muted d-block mb-2">Isian Singkat (31-40)</small>
+                            <div id="nav-isian" class="d-flex flex-wrap justify-content-center"></div>
+                        </div>
+                        <!-- Uraian Container -->
+                        <div class="mb-3">
+                            <small class="fw-bold text-muted d-block mb-2">Uraian HOTS (41-45)</small>
+                            <div id="nav-uraian" class="d-flex flex-wrap justify-content-center"></div>
+                        </div>
+                        
+                        <div class="mt-4 text-center">
+                            <button class="btn btn-outline-danger w-100" onclick="confirmFinish()">
+                                <i class="fas fa-flag-checkered me-2"></i>Akhiri Ujian
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Main Question Area -->
+                <div class="col-lg-9 order-1 order-lg-2 mb-4">
+                    <div class="modern-card p-4 p-md-5">
+                        <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-3">
+                            <h4 class="brand-font fw-bold m-0" id="q-category-title">Kategori Soal</h4>
+                            <span class="badge bg-primary-custom fs-6" id="q-number-badge">Soal #1</span>
+                        </div>
+                        
+                        <!-- Question Content Rendered Here -->
+                        <div id="question-content" class="mb-5" style="min-height: 250px;">
+                            <!-- Dynamic Content -->
+                        </div>
+                        
+                        <!-- Bottom Nav -->
+                        <div class="d-flex justify-content-between mt-4 border-top pt-4">
+                            <button class="btn btn-outline-custom" id="btn-prev" onclick="changeQuestion(-1)">
+                                <i class="fas fa-chevron-left me-2"></i>Sebelumnya
+                            </button>
+                            <button class="btn btn-custom" id="btn-next" onclick="changeQuestion(1)">
+                                Selanjutnya<i class="fas fa-chevron-right ms-2"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Screen: Results -->
+        <section id="result-screen" class="screen">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="modern-card p-4 p-md-5 text-center">
+                        <div id="badge-container">
+                            <!-- Dynamic Badge -->
+                        </div>
+                        
+                        <h1 class="brand-font fw-bold mb-0" id="final-score">0</h1>
+                        <p class="text-muted lead">Skor Akhir Anda</p>
+                        
+                        <h3 class="fw-bold mt-3" id="final-predicate">Kategori</h3>
+                        
+                        <div class="row mt-5 mb-4 text-start">
+                            <div class="col-6">
+                                <p class="mb-1 text-muted">Nama Peserta:</p>
+                                <h5 class="fw-bold" id="res-name">-</h5>
+                            </div>
+                            <div class="col-6 text-end">
+                                <p class="mb-1 text-muted">Kelas:</p>
+                                <h5 class="fw-bold" id="res-class">-</h5>
+                            </div>
+                        </div>
+
+                        <div class="d-flex flex-column flex-sm-row gap-3 justify-content-center mt-5">
+                            <button class="btn btn-custom" onclick="showCertificateUI()">
+                                <i class="fas fa-certificate me-2"></i>Lihat Sertifikat
+                            </button>
+                            <button class="btn btn-outline-custom" onclick="downloadRekap()">
+                                <i class="fas fa-download me-2"></i>Unduh Rekap Jawaban (TXT)
+                            </button>
+                            <button class="btn btn-outline-secondary" onclick="location.reload()">
+                                <i class="fas fa-home me-2"></i>Kembali ke Beranda
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Screen: Certificate -->
+        <section id="certificate-screen" class="screen">
+            <div class="text-center no-print mb-4">
+                <button class="btn btn-secondary me-2" onclick="navTo('result-screen')">
+                    <i class="fas fa-arrow-left me-2"></i>Kembali
+                </button>
+                <button class="btn btn-success me-2" onclick="window.print()">
+                    <i class="fas fa-print me-2"></i>Cetak Sertifikat
+                </button>
+                <small class="d-block mt-2 text-muted">Gunakan fitur Print to PDF pada browser untuk menyimpan sebagai PDF.</small>
+            </div>
+
+            <!-- The Certificate -->
+            <div class="certificate-container mx-auto" style="max-width: 900px;" id="cert-printable">
+                <div class="cert-inner-border">
+                    <h2 class="cert-header fw-bold mb-1">SMA KHALIFAH BOARDING SCHOOL</h2>
+                    <p class="mb-4 text-muted">Sertifikat Penghargaan Asesmen Pembelajaran</p>
+                    
+                    <p class="cert-body mb-2">Diberikan Kepada:</p>
+                    <h1 class="cert-name" id="cert-student-name">NAMA SISWA</h1>
+                    <p class="fw-bold mb-4" id="cert-student-class">KELAS</p>
+                    
+                    <p class="cert-body">Telah mengikuti dan menyelesaikan Asesmen Interaktif pada materi:<br>
+                    <strong class="text-dark fs-4">Berfikir Komputasional (Struktur Data & Strategi Algoritmik)</strong></p>
+                    
+                    <div class="d-inline-block bg-light px-4 py-2 rounded-pill border mb-4">
+                        <span class="fs-5 me-3">Nilai Akhir: <strong id="cert-score">0</strong></span>
+                        <span class="fs-5">Predikat: <strong id="cert-pred">Predikat</strong></span>
+                    </div>
+                    
+                    <p class="text-muted" id="cert-date">Tanggal Ujian: -</p>
+                    
+                    <div class="signature-area">
+                        <div class="signature-box">
+                            <p class="mb-5">Guru Informatika,</p>
+                            <!-- Fake Signature Styling -->
+                            <div style="font-family: 'Brush Script MT', cursive; font-size: 2rem; color: #1A5F7A; margin-bottom: -10px;">M. Irpan</div>
+                            <p class="fw-bold border-top pt-2 mb-0 border-dark">Muhammad Irpan, S.Kom</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="text-center py-4 mt-5 text-muted no-print border-top">
+        <small>&copy; 2026 Informatika - Pesantren Modern Khalifah<br>Powered by Taqi</small>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // State Management
+        let currentScreen = 'menu-screen';
+        let studentData = { name: '', class: '' };
+        let currentQIndex = 0; // 0 to 44 (45 questions total)
+        let timerInterval;
+        let timeLeft = 90 * 60; // 90 minutes in seconds
+        
+        // Answers storage: userAnswers[index] = value
+        let userAnswers = new Array(45).fill(null);
+        
+        // Question Database Generation
+        const questions = [];
+
+        // Helper to add questions
+        const addQ = (cat, type, text, options, answer, id_prefix) => {
+            questions.push({ cat, type, text, options, answer, id: id_prefix + (questions.length + 1) });
+        }
+
+        // 1. Pilihan Ganda (20 Questions) - Index 0-19
+        const pgData = [
+            {q: "Struktur data yang menyimpan elemen secara berurutan di dalam memori dan memiliki indeks adalah...", o: ["Linked List", "Array", "Stack", "Queue", "Tree"], a: "Array"},
+            {q: "Karakteristik utama dari struktur data Stack adalah...", o: ["FIFO (First In First Out)", "LIFO (Last In First Out)", "Random Access", "Hierarchical", "Unordered"], a: "LIFO (Last In First Out)"},
+            {q: "Operasi untuk menambahkan elemen ke dalam Queue disebut...", o: ["Push", "Pop", "Enqueue", "Dequeue", "Insert"], a: "Enqueue"},
+            {q: "Strategi algoritmik yang memecah masalah besar menjadi masalah-masalah kecil yang lebih sederhana, menyelesaikannya, lalu menggabungkannya kembali adalah...", o: ["Greedy", "Dynamic Programming", "Divide and Conquer", "Backtracking", "Brute Force"], a: "Divide and Conquer"},
+            {q: "Algoritma pengurutan (sorting) yang merupakan contoh penerapan Divide and Conquer adalah...", o: ["Bubble Sort", "Insertion Sort", "Selection Sort", "Merge Sort", "Counting Sort"], a: "Merge Sort"},
+            {q: "Dalam pendekatan Greedy, keputusan yang diambil pada setiap langkah bersifat...", o: ["Optimal secara global (menyeluruh)", "Optimal secara lokal (saat itu juga)", "Acak", "Mengevaluasi semua kemungkinan", "Mengingat hasil sebelumnya"], a: "Optimal secara lokal (saat itu juga)"},
+            {q: "Dynamic Programming (DP) berbeda dengan Divide and Conquer karena DP...", o: ["Tidak menggunakan rekursi", "Hanya untuk masalah pencarian", "Menyimpan hasil sub-masalah (memoization) yang tumpang tindih", "Selalu mengambil keputusan lokal terbaik", "Membutuhkan memori yang lebih sedikit"], a: "Menyimpan hasil sub-masalah (memoization) yang tumpang tindih"},
+            {q: "Manakah struktur data yang paling efisien untuk mengimplementasikan fungsionalitas 'Undo' pada text editor?", o: ["Array", "Queue", "Stack", "Linked List", "Graph"], a: "Stack"},
+            {q: "Linked list di mana setiap node memiliki referensi ke node selanjutnya dan node sebelumnya disebut...", o: ["Singly Linked List", "Circular Linked List", "Doubly Linked List", "Binary Tree", "Hash Table"], a: "Doubly Linked List"},
+            {q: "Kelemahan utama dari struktur data Array dibandingkan Linked List adalah...", o: ["Akses data lebih lambat", "Ukuran bersifat statis (sulit diubah)", "Tidak bisa menyimpan tipe data primitif", "Membutuhkan lebih banyak pointer", "Pencarian data tidak mungkin dilakukan"], a: "Ukuran bersifat statis (sulit diubah)"},
+            {q: "Pada struktur data antrean (Queue) di dunia nyata, analogi yang paling tepat adalah...", o: ["Tumpukan piring di restoran", "Orang mengantre di kasir", "Rak buku di perpustakaan", "Silsilah keluarga", "Jaringan jalan raya"], a: "Orang mengantre di kasir"},
+            {q: "Masalah 'Knapsack' fraksional (barang bisa dipotong) paling optimal diselesaikan menggunakan strategi...", o: ["Dynamic Programming", "Divide and Conquer", "Greedy", "Brute Force", "Backtracking"], a: "Greedy"},
+            {q: "Fibonacci sequence sering digunakan untuk mendemonstrasikan efisiensi algoritma. Menggunakan Dynamic Programming untuk Fibonacci akan mencegah...", o: ["Perhitungan berulang pada sub-masalah yang sama", "Penggunaan memori yang berlebihan", "Terjadinya stack overflow mutlak", "Kebutuhan variabel lokal", "Looping tak terbatas"], a: "Perhitungan berulang pada sub-masalah yang sama"},
+            {q: "Kompleksitas waktu dari akses elemen pada Array berdasarkan indeksnya adalah...", o: ["O(n)", "O(log n)", "O(n^2)", "O(1)", "O(n log n)"], a: "O(1)"},
+            {q: "Pencarian Biner (Binary Search) adalah contoh strategi algoritmik...", o: ["Greedy", "Dynamic Programming", "Divide and Conquer", "Linear Search", "Graph Traversal"], a: "Divide and Conquer"},
+            {q: "Jika Anda melakukan operasi Pop pada Stack yang sudah kosong, kondisi yang terjadi disebut...", o: ["Overflow", "Underflow", "Garbage Collection", "Memory Leak", "Segmentation Fault"], a: "Underflow"},
+            {q: "Sebuah node pada Singly Linked List terdiri dari dua bagian utama, yaitu...", o: ["Data dan Pointer (Next)", "Head dan Tail", "Index dan Value", "Key dan Value", "Left dan Right"], a: "Data dan Pointer (Next)"},
+            {q: "Dalam algoritma penukaran uang logam (Coin Change) untuk mencari jumlah koin minimal, jika sistem koin tidak standar, strategi Greedy mungkin memberikan hasil yang salah. Strategi apa yang dijamin memberikan hasil optimal?", o: ["Divide and Conquer", "Sorting", "Hashing", "Dynamic Programming", "Searching"], a: "Dynamic Programming"},
+            {q: "Proses 'Conquer' pada strategi Divide and Conquer bertujuan untuk...", o: ["Membagi masalah", "Menggabungkan solusi sub-masalah", "Mencari solusi perkiraan", "Menyimpan data ke memori", "Menghapus data yang tidak perlu"], a: "Menggabungkan solusi sub-masalah"},
+            {q: "Struktur data yang digunakan oleh sistem operasi untuk mengelola proses yang sedang menunggu giliran CPU biasanya adalah...", o: ["Stack", "Array", "Queue", "Tree", "Graph"], a: "Queue"}
+        ];
+        pgData.forEach(d => addQ("PG", "radio", d.q, d.o, d.a, "q_pg_"));
+
+        // 2. Pilihan Ganda Kompleks (5 Questions) - Index 20-24
+        // Answer format: array of strings
+        const pgkData = [
+            {q: "Manakah dari pernyataan berikut yang BENAR mengenai struktur data Linear?", o: ["Array adalah struktur data linear.", "Tree adalah struktur data linear.", "Elemen dalam Queue diakses secara non-linear.", "Stack menerapkan prinsip LIFO.", "Linked List memungkinkan alokasi memori dinamis."], a: ["Array adalah struktur data linear.", "Stack menerapkan prinsip LIFO.", "Linked List memungkinkan alokasi memori dinamis."]},
+            {q: "Ciri-ciri masalah yang cocok diselesaikan dengan Dynamic Programming meliputi...", o: ["Hanya memiliki satu sub-masalah.", "Optimal Substructure (solusi optimal dibentuk dari solusi optimal sub-masalah).", "Tidak memerlukan memori tambahan.", "Overlapping Subproblems (sub-masalah sering berulang).", "Selalu menggunakan pendekatan dari atas ke bawah (Top-Down) tanpa exception."], a: ["Optimal Substructure (solusi optimal dibentuk dari solusi optimal sub-masalah).", "Overlapping Subproblems (sub-masalah sering berulang)."]},
+            {q: "Pilih algoritma yang termasuk dalam kategori Divide and Conquer:", o: ["Merge Sort", "Kruskal's Algorithm", "Quick Sort", "Dijkstra's Algorithm", "Binary Search"], a: ["Merge Sort", "Quick Sort", "Binary Search"]},
+            {q: "Operasi dasar yang valid pada struktur data Queue adalah...", o: ["Push", "Enqueue", "Pop", "Dequeue", "Front/Peek"], a: ["Enqueue", "Dequeue", "Front/Peek"]},
+            {q: "Kelebihan Linked List dibandingkan Array adalah...", o: ["Akses acak (random access) lebih cepat.", "Ukuran dinamis, memori dialokasikan saat dibutuhkan.", "Penambahan/penghapusan elemen di tengah lebih efisien.", "Penggunaan memori total selalu lebih kecil dari array.", "Tidak terjadi pemborosan memori jika banyak sel kosong."], a: ["Ukuran dinamis, memori dialokasikan saat dibutuhkan.", "Penambahan/penghapusan elemen di tengah lebih efisien.", "Tidak terjadi pemborosan memori jika banyak sel kosong."]}
+        ];
+        pgkData.forEach(d => addQ("PGK", "checkbox", d.q, d.o, d.a, "q_pgk_"));
+
+        // 3. Menjodohkan (5 Questions - simulated as 5 pairs to match) - Index 25-29
+        // We will implement this as a dropdown select for each term to choose its definition.
+        const matchData = [
+            { term: "LIFO (Last In First Out)", defs: ["Array", "Stack", "Queue", "Linked List", "Greedy"], a: "Stack" },
+            { term: "FIFO (First In First Out)", defs: ["Array", "Stack", "Queue", "Linked List", "Greedy"], a: "Queue" },
+            { term: "Memoization / Bottom-up", defs: ["Dynamic Programming", "Divide and Conquer", "Greedy", "Brute Force", "Backtracking"], a: "Dynamic Programming" },
+            { term: "Pilihan lokal terbaik", defs: ["Dynamic Programming", "Divide and Conquer", "Greedy", "Brute Force", "Backtracking"], a: "Greedy" },
+            { term: "Memecah, Menyelesaikan, Menggabungkan", defs: ["Dynamic Programming", "Divide and Conquer", "Greedy", "Brute Force", "Backtracking"], a: "Divide and Conquer" }
+        ];
+        matchData.forEach(d => {
+            addQ("Menjodohkan", "select", `Pasangkan konsep ini dengan algoritma/struktur data yang tepat: <strong>${d.term}</strong>`, d.defs, d.a, "q_match_");
+        });
+
+        // 4. Isian Singkat (10 Questions) - Index 30-39
+        const isianData = [
+            {q: "Struktur data yang indeks awalnya selalu 0 pada sebagian besar bahasa pemrograman adalah...", a: "array"},
+            {q: "Operasi untuk menghapus elemen pertama yang masuk dalam antrean disebut...", a: "dequeue"},
+            {q: "Strategi yang mengingat hasil komputasi sebelumnya agar tidak dihitung ulang disebut Dynamic...", a: "programming"},
+            {q: "Struktur data dimana setiap elemen menunjuk ke elemen berikutnya disebut Linked...", a: "list"},
+            {q: "Proses pengurutan dengan membagi data menjadi dua bagian, mengurutkan masing-masing, lalu digabung disebut ... Sort.", a: "merge"},
+            {q: "Kata kunci dari struktur Stack adalah LIFO, kepanjangan dari Last In ... Out.", a: "first"},
+            {q: "Pendekatan algoritmik yang mengambil pilihan optimal saat itu tanpa memikirkan konsekuensi ke depan disebut algoritma ...", a: "greedy"},
+            {q: "Kondisi dimana kita mencoba mengambil data dari Stack yang kosong disebut...", a: "underflow"},
+            {q: "Elemen penunjuk (pointer) pada node terakhir dalam Singly Linked List biasanya bernilai...", a: "null"},
+            {q: "Masalah penukaran uang dengan jumlah koin paling sedikit paling optimal diselesaikan menggunakan teknik pemrograman...", a: "dinamis"} // allow dinamis or dynamic
+        ];
+        isianData.forEach(d => addQ("Isian", "text", d.q, null, d.a, "q_isian_"));
+
+        // 5. Uraian (5 Questions) - Index 40-44
+        const uraianData = [
+            {q: "Jelaskan perbedaan mendasar antara struktur data Stack dan Queue. Berikan masing-masing satu contoh penerapannya dalam kehidupan sehari-hari atau sistem komputer!", a: "stack,queue,lifo,fifo"}, // Keywords for auto-grading
+            {q: "Sebuah program membutuhkan struktur data yang sering melakukan penambahan dan penghapusan data di tengah antrean, namun jarang melakukan pencarian berdasarkan indeks. Apakah Anda akan memilih Array atau Linked List? Jelaskan alasannya!", a: "linked list,dinamis,geser,memori"},
+            {q: "Jelaskan prinsip kerja dari strategi algoritma Divide and Conquer menggunakan contoh algoritma Merge Sort!", a: "bagi,pecah,urut,gabung,merge,conquer"},
+            {q: "Mengapa algoritma Greedy tidak selalu memberikan solusi yang paling optimal untuk semua jenis permasalahan? Berikan argumen logika Anda.", a: "lokal,global,keseluruhan,masa depan,terbaik"},
+            {q: "Apa yang membedakan Dynamic Programming dari rekursi biasa? Jelaskan konsep 'Overlapping Subproblems'!", a: "ulang,simpan,memoization,tumpang tindih,berulang"}
+        ];
+        uraianData.forEach(d => addQ("Uraian", "textarea", d.q, null, d.a, "q_uraian_"));
+
+
+        
+        function toggleTheme() {
+            const html = document.documentElement;
+            const btn = document.getElementById('theme-btn');
+            if(html.getAttribute('data-bs-theme') === 'light') {
+                html.setAttribute('data-bs-theme', 'dark');
+                btn.innerHTML = '<i class="fas fa-sun text-warning"></i>';
+            } else {
+                html.setAttribute('data-bs-theme', 'light');
+                btn.innerHTML = '<i class="fas fa-moon"></i>';
+            }
+        }
+
+        function navTo(screenId) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            document.getElementById(screenId).classList.add('active');
+            window.scrollTo(0,0);
+        }
+
+        function startExam(e) {
+            e.preventDefault();
+            studentData.name = document.getElementById('student-name').value;
+            studentData.class = document.getElementById('student-class').value;
+            
+            navTo('exam-screen');
+            document.getElementById('timer-display').classList.remove('d-none');
+            
+            buildNavigation();
+            renderQuestion(0);
+            
+            // Start Timer
+            timerInterval = setInterval(updateTimer, 1000);
+        }
+
+        function updateTimer() {
+            if (timeLeft <= 0) {
+                clearInterval(timerInterval);
+                finishExam(true); // Force finish
+                return;
+            }
+            timeLeft--;
+            const m = Math.floor(timeLeft / 60).toString().padStart(2, '0');
+            const s = (timeLeft % 60).toString().padStart(2, '0');
+            document.getElementById('time-left').innerText = `${m}:${s}`;
+            
+            if(timeLeft < 300) { // 5 minutes warning
+                document.getElementById('timer-display').classList.replace('bg-primary-custom', 'bg-danger');
+            }
+        }
+
+        function buildNavigation() {
+            const getContainer = (cat) => {
+                if(cat === "PG") return document.getElementById('nav-pg');
+                if(cat === "PGK") return document.getElementById('nav-pgk');
+                if(cat === "Menjodohkan") return document.getElementById('nav-match');
+                if(cat === "Isian") return document.getElementById('nav-isian');
+                if(cat === "Uraian") return document.getElementById('nav-uraian');
+            };
+
+            questions.forEach((q, index) => {
+                const container = getContainer(q.cat);
+                const tile = document.createElement('div');
+                tile.className = 'question-number-tile shadow-sm';
+                tile.id = `nav-tile-${index}`;
+                tile.innerText = index + 1;
+                tile.onclick = () => renderQuestion(index);
+                container.appendChild(tile);
+            });
+            updateNavUI();
+        }
+
+        function updateNavUI() {
+            document.querySelectorAll('.question-number-tile').forEach((t, i) => {
+                t.classList.remove('active');
+                if(i === currentQIndex) t.classList.add('active');
+                
+                // Check if answered
+                let isAnswered = false;
+                const ans = userAnswers[i];
+                if(ans !== null && ans !== undefined && ans !== "") {
+                    if(Array.isArray(ans) && ans.length === 0) isAnswered = false;
+                    else isAnswered = true;
+                }
+                
+                if(isAnswered) t.classList.add('answered');
+                else t.classList.remove('answered');
+            });
+            
+            // Progress Bar
+            const answeredCount = userAnswers.filter(a => a !== null && a !== "" && (!Array.isArray(a) || a.length > 0)).length;
+            const pct = (answeredCount / questions.length) * 100;
+            document.getElementById('exam-progress').style.width = pct + '%';
+        }
+
+        function renderQuestion(index) {
+            saveCurrentAnswer(); // Save before switching
+            currentQIndex = index;
+            const q = questions[index];
+            
+            document.getElementById('q-category-title').innerText = q.cat;
+            document.getElementById('q-number-badge').innerText = `Soal #${index + 1}`;
+            
+            const contentDiv = document.getElementById('question-content');
+            let html = `<p class="fs-5 mb-4">${q.text}</p>`;
+            
+            // Render Input Types
+            if (q.type === 'radio') {
+                html += `<div class="options-container">`;
+                q.options.forEach((opt, i) => {
+                    const checked = userAnswers[index] === opt ? 'checked' : '';
+                    html += `
+                        <input type="radio" name="q_radio" id="opt_${i}" value="${opt}" class="option-input" ${checked}>
+                        <label for="opt_${i}" class="option-label shadow-sm">${opt}</label>
+                    `;
+                });
+                html += `</div>`;
+            } 
+            else if (q.type === 'checkbox') {
+                html += `<div class="options-container">`;
+                const ansArr = userAnswers[index] || [];
+                q.options.forEach((opt, i) => {
+                    const checked = ansArr.includes(opt) ? 'checked' : '';
+                    html += `
+                        <input type="checkbox" name="q_check" id="opt_${i}" value="${opt}" class="option-input" ${checked}>
+                        <label for="opt_${i}" class="option-label shadow-sm">${opt}</label>
+                    `;
+                });
+                html += `</div><small class="text-muted d-block mt-2"><i class="fas fa-info-circle"></i> Pilih semua jawaban yang benar.</small>`;
+            }
+            else if (q.type === 'select') {
+                html += `
+                    <select class="form-select form-select-lg mt-3" id="q_select">
+                        <option value="" disabled ${!userAnswers[index] ? 'selected' : ''}>Pilih pasangan yang tepat...</option>
+                        ${q.options.map(opt => `<option value="${opt}" ${userAnswers[index] === opt ? 'selected' : ''}>${opt}</option>`).join('')}
+                    </select>
+                `;
+            }
+            else if (q.type === 'text') {
+                html += `
+                    <input type="text" class="form-control form-control-lg mt-3" id="q_text" placeholder="Ketik jawaban singkat Anda..." value="${userAnswers[index] || ''}">
+                    <small class="text-muted d-block mt-2"><i class="fas fa-info-circle"></i> Perhatikan penulisan kata.</small>
+                `;
+            }
+            else if (q.type === 'textarea') {
+                html += `
+                    <textarea class="form-control mt-3" id="q_textarea" rows="5" placeholder="Ketik jawaban uraian Anda di sini...">${userAnswers[index] || ''}</textarea>
+                    <small class="text-muted d-block mt-2"><i class="fas fa-info-circle"></i> Tuliskan penjelasan selengkap mungkin.</small>
+                `;
+            }
+
+            contentDiv.innerHTML = html;
+            
+            // Buttons logic
+            document.getElementById('btn-prev').disabled = index === 0;
+            const btnNext = document.getElementById('btn-next');
+            if (index === questions.length - 1) {
+                btnNext.innerHTML = `<i class="fas fa-check-circle me-2"></i>Selesai`;
+                btnNext.classList.replace('btn-custom', 'btn-success');
+                btnNext.onclick = confirmFinish;
+            } else {
+                btnNext.innerHTML = `Selanjutnya<i class="fas fa-chevron-right ms-2"></i>`;
+                btnNext.classList.replace('btn-success', 'btn-custom');
+                btnNext.onclick = () => changeQuestion(1);
+            }
+            
+            updateNavUI();
+        }
+
+        function saveCurrentAnswer() {
+            const q = questions[currentQIndex];
+            if(!q) return;
+            
+            if (q.type === 'radio') {
+                const checked = document.querySelector('input[name="q_radio"]:checked');
+                userAnswers[currentQIndex] = checked ? checked.value : null;
+            } 
+            else if (q.type === 'checkbox') {
+                const checks = document.querySelectorAll('input[name="q_check"]:checked');
+                userAnswers[currentQIndex] = Array.from(checks).map(c => c.value);
+            }
+            else if (q.type === 'select') {
+                const el = document.getElementById('q_select');
+                if(el) userAnswers[currentQIndex] = el.value;
+            }
+            else if (q.type === 'text') {
+                const el = document.getElementById('q_text');
+                if(el) userAnswers[currentQIndex] = el.value.trim();
+            }
+            else if (q.type === 'textarea') {
+                const el = document.getElementById('q_textarea');
+                if(el) userAnswers[currentQIndex] = el.value.trim();
+            }
+        }
+
+        function changeQuestion(dir) {
+            const newIndex = currentQIndex + dir;
+            if (newIndex >= 0 && newIndex < questions.length) {
+                renderQuestion(newIndex);
+            }
+        }
+
+        function confirmFinish() {
+            saveCurrentAnswer();
+            updateNavUI();
+            
+            const unanswered = userAnswers.filter(a => a === null || a === "" || (Array.isArray(a) && a.length === 0)).length;
+            let msg = "Apakah Anda yakin ingin menyelesaikan ujian ini?";
+            if (unanswered > 0) {
+                msg = `Terdapat ${unanswered} soal yang belum dijawab. ` + msg;
+            }
+            
+            if(confirm(msg)) {
+                finishExam(false);
+            }
+        }
+
+        function finishExam(forced) {
+            clearInterval(timerInterval);
+            document.getElementById('timer-display').classList.add('d-none');
+            
+            if(forced) alert("Waktu Habis! Ujian otomatis diselesaikan.");
+            
+            calculateScore();
+            navTo('result-screen');
+        }
+
+        function calculateScore() {
+            let totalScore = 0;
+            
+            questions.forEach((q, i) => {
+                const ans = userAnswers[i];
+                
+                if (q.cat === 'PG') { // 20 * 1 = 20 pts (Weight 1 per q, visually total is 100, wait. Let's do standard percentages).
+                    // Wait, prompt: PG (20), PGK (5), Match (5), Isian (10), Uraian (5). Total questions = 45.
+                    // Let's use proportional weighting to hit max 100.
+                    // PG: 20Q * 1.5 = 30%
+                    // PGK: 5Q * 3 = 15%
+                    // Match: 5Q * 2 = 10%
+                    // Isian: 10Q * 2 = 20%
+                    // Uraian: 5Q * 5 = 25%
+                    // Total = 100%.
+                    
+                    if (ans === q.answer) totalScore += 1.5;
+                } 
+                else if (q.cat === 'PGK') {
+                    if (Array.isArray(ans)) {
+                        // Check exact match arrays
+                        const correctArr = q.answer;
+                        if(ans.length === correctArr.length && ans.every(v => correctArr.includes(v))) {
+                            totalScore += 3;
+                        } else {
+                            // Partial credit
+                            let matchCount = 0;
+                            ans.forEach(val => { if(correctArr.includes(val)) matchCount++; });
+                            let falseCount = ans.length - matchCount;
+                            let partial = (matchCount / correctArr.length) * 3 - (falseCount * 0.5); // Penalty for wrong
+                            if(partial > 0) totalScore += partial;
+                        }
+                    }
+                }
+                else if (q.cat === 'Menjodohkan') {
+                    if (ans === q.answer) totalScore += 2;
+                }
+                else if (q.cat === 'Isian') {
+                    if(ans && q.answer) {
+                        const sanitizedAns = ans.toLowerCase().replace(/[^a-z0-9]/g, '');
+                        const sanitizedKey = q.answer.toLowerCase();
+                        if (sanitizedAns.includes(sanitizedKey) || sanitizedKey.includes(sanitizedAns)) {
+                            totalScore += 2;
+                        }
+                    }
+                }
+                else if (q.cat === 'Uraian') {
+                    if(ans) {
+                        const text = ans.toLowerCase();
+                        const keywords = q.answer.split(',');
+                        let found = 0;
+                        keywords.forEach(kw => {
+                            if(text.includes(kw.trim())) found++;
+                        });
+                        
+                        // Basic heuristics for essay
+                        let pts = 0;
+                        if (text.length > 20) pts += 1; // Attempt points
+                        if (found > 0) pts += (found / keywords.length) * 4; // Keyword points (max 4)
+                        totalScore += pts;
+                    }
+                }
+            });
+
+            // Finalize Score (Round to 2 decimals, cap at 100)
+            totalScore = Math.min(100, Math.round(totalScore));
+            
+            // Predicate Logic based on prompt
+            // 90–100 = Sangat Baik, 80–89 = Baik, 70–79 = Cukup, <70 = Perlu Bimbingan
+            let predikat = "";
+            let badgeHtml = "";
+            let badgeColor = "";
+            
+            if (totalScore >= 90) { 
+                predikat = "Sangat Baik"; 
+                badgeHtml = '<i class="fas fa-crown badge-icon"></i><h4 class="text-warning fw-bold">Luar Biasa!</h4>'; 
+                badgeColor = "text-success";
+            }
+            else if (totalScore >= 80) { 
+                predikat = "Baik"; 
+                badgeHtml = '<i class="fas fa-medal badge-icon" style="color: #C0C0C0;"></i><h4 class="text-secondary fw-bold">Kerja Bagus!</h4>'; 
+                badgeColor = "text-primary";
+            }
+            else if (totalScore >= 70) { 
+                predikat = "Cukup"; 
+                badgeHtml = '<i class="fas fa-thumbs-up badge-icon" style="color: #cd7f32;"></i><h4 class="text-danger fw-bold">Tingkatkan Lagi</h4>'; 
+                badgeColor = "text-warning";
+            }
+            else { 
+                predikat = "Perlu Bimbingan"; 
+                badgeHtml = '<i class="fas fa-book-reader badge-icon" style="color: #777;"></i><h4 class="text-muted fw-bold">Jangan Menyerah</h4>'; 
+                badgeColor = "text-danger";
+            }
+
+            // Update Result UI
+            document.getElementById('final-score').innerText = totalScore;
+            document.getElementById('final-score').className = `brand-font fw-bold mb-0 ${badgeColor}`;
+            document.getElementById('final-predicate').innerText = predikat;
+            document.getElementById('badge-container').innerHTML = badgeHtml;
+            document.getElementById('res-name').innerText = studentData.name || "Siswa";
+            document.getElementById('res-class').innerText = studentData.class || "-";
+            
+            // Prepare Certificate Data
+            document.getElementById('cert-student-name').innerText = studentData.name.toUpperCase() || "NAMA SISWA";
+            document.getElementById('cert-student-class').innerText = studentData.class || "KELAS";
+            document.getElementById('cert-score').innerText = totalScore;
+            document.getElementById('cert-pred').innerText = predikat;
+            
+            const today = new Date();
+            const dateStr = today.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
+            document.getElementById('cert-date').innerText = `Diterbitkan pada: ${dateStr}`;
+        }
+
+        function showCertificateUI() {
+            navTo('certificate-screen');
+        }
+
+        function downloadRekap() {
+            let content = `REKAPITULASI JAWABAN ASESMEN\n`;
+            content += `============================\n`;
+            content += `Nama  : ${studentData.name}\n`;
+            content += `Kelas : ${studentData.class}\n`;
+            content += `Skor  : ${document.getElementById('final-score').innerText} (${document.getElementById('final-predicate').innerText})\n`;
+            content += `Waktu : ${new Date().toLocaleString('id-ID')}\n\n`;
+            content += `DETAIL JAWABAN:\n`;
+            content += `----------------------------\n`;
+            
+            questions.forEach((q, i) => {
+                let ansStr = userAnswers[i];
+                if (Array.isArray(ansStr)) {
+                    ansStr = ansStr.length > 0 ? ansStr.join(', ') : 'Kosong';
+                } else if (!ansStr) {
+                    ansStr = 'Kosong';
+                }
+                // Formatting clean text
+                let cleanQ = q.text.replace(/<[^>]*>?/gm, ''); // remove html if any
+                content += `Soal ${i+1} [${q.cat}]:\nQ: ${cleanQ}\nA: ${ansStr}\n\n`;
+            });
+            
+            content += `============================\n`;
+            content += `Dokumen ini di-generate secara otomatis.`;
+
+            // Create Blob and Download
+            const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `Rekap_Jawaban_${studentData.name.replace(/\s+/g, '_')}_XI.txt`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+        }
+
+    </script>
+</body>
+</html>
